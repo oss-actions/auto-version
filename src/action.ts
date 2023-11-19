@@ -46,7 +46,7 @@ export async function action() {
 			"Major, or breaking changes has been blocked",
 			annotation({ title: "versioning" }),
 		);
-		return;
+		process.exit(1);
 	}
 
 	if (!currentHighestTag) {
