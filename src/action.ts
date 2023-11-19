@@ -53,6 +53,8 @@ export async function action() {
 		const version = increment === "major" ? "1.0.0" : "0.1.0";
 		setOutput("version", version);
 		setOutput("tag", "v" + version);
+		setOutput("branch", "none");
+		setOutput("branch_sha", "none");
 		notice(
 			`New version is '${version}', increment was '${increment}'`,
 			annotation({ title: "Versioning" }),
