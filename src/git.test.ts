@@ -9,6 +9,7 @@ const repos: string[] = [];
 const _cash = os() === "Windows_NT" ? PowerShell : Bash;
 const shell = (path: string) => {
 	const cash = new Cash(_cash);
+	cash.ignoreExitCode = true;
 	cash.spawnOptions.cwd = path;
 	return cash;
 };
@@ -17,23 +18,41 @@ export async function createRepository(): Promise<string> {
 	const path = join(process.cwd(), randomUUID());
 	mkdirSync(path, { recursive: true });
 	const $ = shell(path);
-	await $`git init`;
+	const result = await $`git init`;
+	if (result.code > 0) {
+		repos.push(path);
+		console.error(result.stdall);
+		throw new Error("Could not initialize repository");
+	}
 	repos.push(path);
 	return path;
 }
 
 export async function emptyCommit(path: string, message = "initial commit") {
 	const $ = shell(path);
-	await $`git commit --allow-empty -m "${message.replace(
+	const result = await $`git commit --allow-empty -m "${message.replace(
 		/("|\$|\\)/g,
 		(s) => "\\" + s,
 	)}"`;
+	if (result.code > 0) {
+		repos.push(path);
+		console.error(result.stdall);
+		throw new Error("Could not create empty commit");
+	}
 }
 
 export async function createTags(path: string, ...tags: string[]) {
 	const $ = shell(path);
 	for (const tag of tags) {
-		await $`git tag "${tag.replace(/("|\$|\\)/g, (s) => "\\" + s)}"`;
+		const result = await $`git tag "${tag.replace(
+			/("|\$|\\)/g,
+			(s) => "\\" + s,
+		)}"`;
+		if (result.code > 0) {
+			repos.push(path);
+			console.error(result.stdall);
+			throw new Error("Could not create tag " + tag);
+		}
 	}
 }
 
