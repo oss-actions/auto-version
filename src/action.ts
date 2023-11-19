@@ -5,9 +5,12 @@ import {
 	setOutput,
 	string,
 	annotation,
+	error,
 } from "jamesons-actions-toolkit";
-import getHighestVersionInRepository from "./getHighestVersionInRepository";
 import { ReleaseType } from "semver";
+import getHighestVersionInRepository from "./getHighestVersionInRepository";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { version: actionVersion } = require("../package.json");
 
 export async function action() {
 	const token = getInput("token", { type: string });
@@ -29,12 +32,20 @@ export async function action() {
 
 	if (!repository) throw new Error("Missing $GITHUB_REPOSITORY");
 
+	notice(
+		`Using semver action v${actionVersion}`,
+		annotation({ title: "Versioning" }),
+	);
+
 	const currentHighestTag = await getHighestVersionInRepository(
 		`https://github-actions:${token}@github.com/${repository}.git`,
 	);
 
 	if (increment === "major" && refuseMajorIncrement) {
-		// todo: show error about blocking breaking changes
+		error(
+			"Major, or breaking changes has been blocked",
+			annotation({ title: "versioning" }),
+		);
 		return;
 	}
 
