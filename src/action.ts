@@ -15,7 +15,7 @@ const { version: actionVersion } = require("../package.json");
 export async function action() {
 	const token = getInput("token", { type: string });
 	const refuseMajorIncrement = getInput("refuse_major_increment", {
-		type: string,
+		type: boolean,
 	});
 	let increment = getInput("increment", { type: string }) as ReleaseType;
 	switch (increment) {
