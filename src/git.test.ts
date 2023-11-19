@@ -18,7 +18,8 @@ export async function createRepository(): Promise<string> {
 	const path = join(process.cwd(), randomUUID());
 	mkdirSync(path, { recursive: true });
 	const $ = shell(path);
-	const result = await $`git init`;
+	const result =
+		await $`git init && git config user.name "test" && git config user.email "test@test.test"`;
 	if (result.code > 0) {
 		repos.push(path);
 		console.error(result.stdall);
