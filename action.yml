@@ -1,0 +1,30 @@
+name: Auto Semver
+runs:
+  using: node20
+  main: dist/main.js
+inputs:
+  # Settings
+  token:
+    required: true
+  refuse_major_increment:
+    required: true
+  # Increment
+  increment:
+    required: true
+  hard:
+    required: true
+outputs:
+  version:
+    description: |
+      The new version.
+  tag:
+    description: |
+      The tag that should be created in the workflow.
+  branch:
+    description: |
+      The name of the branch that should be created for the current
+      latest version. Defaults to `"none"` if a release branch should
+      not be created.
+  branch_sha:
+    description: |
+      The commit SHA the branch should origin from.
