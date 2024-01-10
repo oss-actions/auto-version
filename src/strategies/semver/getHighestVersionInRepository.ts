@@ -2,7 +2,7 @@ import type { Tag } from "./types";
 import { PowerShell, Bash, Cash } from "jamesons-actions-toolkit";
 import { type as os } from "node:os";
 import { SemVer } from "semver";
-import { iterateReadable } from "./util/iter";
+import { iterateReadable } from "../../util/iter";
 
 const $ = new Cash(os() === "Windows_NT" ? PowerShell : Bash);
 $.ignoreExitCode = true;

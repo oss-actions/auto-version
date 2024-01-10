@@ -6,9 +6,10 @@ inputs:
   # Settings
   token:
     required: true
+  type:
+    required: true
   refuse_major_increment:
     required: true
-  # Increment
   increment:
     required: true
   hard:
