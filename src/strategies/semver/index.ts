@@ -10,7 +10,7 @@ import {
 import { ReleaseType } from "semver";
 import getHighestVersionInRepository from "./getHighestVersionInRepository";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { version: actionVersion } = require("../package.json");
+const { version: actionVersion } = require("../../../package.json");
 
 export default async function action() {
 	const token = getInput("token", { type: string });
