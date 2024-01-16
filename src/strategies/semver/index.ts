@@ -9,8 +9,6 @@ import {
 } from "jamesons-actions-toolkit";
 import { ReleaseType } from "semver";
 import getHighestVersionInRepository from "./getHighestVersionInRepository";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { version: actionVersion } = require("../../../package.json");
 
 export default async function action() {
 	const token = getInput("token", { type: string });
@@ -31,11 +29,6 @@ export default async function action() {
 	const repository = process.env.GITHUB_REPOSITORY;
 
 	if (!repository) throw new Error("Missing $GITHUB_REPOSITORY");
-
-	notice(
-		`Using semver action v${actionVersion}`,
-		annotation({ title: "Versioning" }),
-	);
 
 	const currentHighestTag = await getHighestVersionInRepository(
 		`https://github-actions:${token}@github.com/${repository}.git`,

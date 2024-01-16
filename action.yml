@@ -5,15 +5,15 @@ runs:
 inputs:
   # Settings
   token:
-    required: true
+    required: false
   type:
-    required: true
+    required: false
   refuse_major_increment:
-    required: true
+    required: false
   increment:
-    required: true
+    required: false
   hard:
-    required: true
+    required: false
 outputs:
   version:
     description: |
