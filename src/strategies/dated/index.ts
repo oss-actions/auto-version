@@ -11,8 +11,8 @@ function today(now = new Date()): string {
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 function getVersion() {
 	return [
-		process.env.GITHUB_RUN_ID,
 		process.env.GITHUB_RUN_NUMBER,
+		process.env.GITHUB_RUN_ATTEMPT,
 		today(),
 		process.env.GITHUB_SHA!.substring(0, 7),
 	]
