@@ -1,24 +1,12 @@
 *
 !/**/
-!/.github/workflows/*.yml
-!/.vscode/extensions.json
-!/.vscode/settings.json
-!/src/**/*.ts
-!/test/**/*.ts
-!/.eslintrc.cjs
 !/.gitignore
-!/release.gitignore
-!/.prettierignore
-!/.prettierrc.json
 !/action.yml
-!/jest.config.cjs
 !/LICENSE
 !/package.json
 !/package-lock.json
 !/README.md
-!/tsconfig.json
-!/CODEOWNERS
+!/dist/**/*.js
+!/node_modules/**/*
 
-dist
-node_modules
-coverage
+/dist/**/*.test.js
