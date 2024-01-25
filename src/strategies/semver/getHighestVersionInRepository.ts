@@ -27,6 +27,7 @@ export default async function getHighestVersionInRepository(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	for await (const line of iterateReadable(result.stdout as any)) {
 		const reference = line.substring(0, 40);
+		if (line.endsWith("^{}")) continue;
 		const version = parseVersion(line.substring(51, line.length));
 		if (!version) continue;
 		if (v === undefined) v = { reference, version };
